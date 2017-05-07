@@ -15,7 +15,7 @@ import org.eclipse.paho.client.mqttv3.internal.MemoryPersistence;
  */
 public class MQTTService extends Service {
     //消息服务器的URL
-    public static final String BROKER_URL = "tcp://192.168.191.6:1883";
+    public static final String BROKER_URL = "tcp://192.168.253.2:1883";
     //客户端ID，用来标识一个客户，可以根据不同的策略来生成
     public static final String clientId = "android-client";
     //订阅的主题名
@@ -37,13 +37,13 @@ public class MQTTService extends Service {
     public void onStart(Intent intent, int startId) {
 
         try {
-            //在服务开始时new一个mqttClient实例，客户端ID为clientId，第三个参数说明是持久化客户端，如果是null则是非持久化
+            //在服务开始时new一个mqttClient实例，客户端ID为clientId，MemoryPersistence设置clientid的保存形式，默认为以内存保存
         	mqttClient = new MqttClient(BROKER_URL, clientId, new MemoryPersistence());
 
         	// MQTT的连接设置  
     		options = new MqttConnectOptions();  
     		// 设置是否清空session,这里如果设置为false表示服务器会保留客户端的连接记录，这里设置为true表示每次连接到服务器都以新的身份连接 
-    		//换而言之，设置为false时可以客户端可以接受离线消息
+    		// 换而言之，设置为false时可以客户端可以接受离线消息 
     		options.setCleanSession(false);  
     		// 设置连接的用户名  
     		options.setUserName(userName);  
